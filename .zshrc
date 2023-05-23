@@ -9,11 +9,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # Go CLI stuff
 alias cobra='$HOME/go/bin/cobra'
 export PATH="$HOME/go/bin/cobra:$PATH"
-alias go-vote=$HOME/go/bin/go-vote
-alias checkin=$HOME/go/bin/checkin
-
-PATH=$PATH:/usr/local/opt/riscv-gnu-toolchain/bin
-[ -f "/Users/badmin/.ghcup/env" ] && source "/Users/badmin/.ghcup/env" # ghcup-env
 
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -21,15 +16,6 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
-
-# Created by `pipx` on 2021-11-17 22:10:41
-export PATH="$PATH:/Users/badmin/.local/bin"
-
-# Docker
-export DOCKER_BUILDKIT=0
-
-# Gcloud shell completions
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
