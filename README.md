@@ -1,21 +1,41 @@
-## Required Packages
-
-- Xcode `xcode-select --install`
-- Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
-- `brew install pyenv openssl readline sqlite3 xz zlib`
-- Python3 `brew install python`
-- `pyenv install --list` then `pyenv install <version>` then `pyenv global <version>`
-- Poetry `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -`
-- Using [Air](https://github.com/cosmtrek/air)
-
-# Terminal Themes
-Text: `#feec7c`
-Background: `#1e0708`
-
 ## Installation
+
+For MacOS.
 
 ```
 ln .vimrc ~/.vimrc
 ln .zshrc ~/.zshrc
+ln .config/nvim ~/.config/nvim
+
+# Developer tools, also available for install via running "git init" for the first time
+xcode-select --install
+
+# Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Python Stuff
+brew install pyenv python
+pyenv install <version>  # Get versions from pyenv install --list
+pyenv global <version>
+curl -sSL https://install.python-poetry.org | python -
+
+# Editor
+brew install neovim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+## Inside Vim
+## :PlugInstall
+
+# Tooling
+
+## CLI
+brew install fzf ripgrep jq gh
+
+## Databases
+brew install pgcli
 ```
 
+### Terminal Themes
+Text: `#feec7c`
+Background: `#1e0708`
