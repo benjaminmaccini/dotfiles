@@ -1,3 +1,10 @@
+########################
+# Begin General Config #
+########################
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt APPEND_HISTORY
+
 #####################
 # Begin Code Stuffs #
 #####################
