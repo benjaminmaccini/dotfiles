@@ -6,6 +6,7 @@ For MacOS.
 ln .vimrc ~/.vimrc
 ln .zshrc ~/.zshrc
 ln .config/nvim ~/.config/nvim
+ln .config/pgcli ~/.config/pgcli
 
 # Developer tools, also available for install via running "git init" for the first time
 xcode-select --install
