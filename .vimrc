@@ -1,61 +1,22 @@
+" This is a basic vimrc for simple editing. Anything more complicated should
+" be done via nvim
+
 " set the runtime path to include plug and initialize
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin()
 
-Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf.vim'  " brew install fzf ripgrep
 Plug 'junegunn/fzf'
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 
 " All of your Plugs must be added before the following line
 call plug#end()            " required
 
-" General config
-" push more characters through to the terminal per cycle
-set ttyfast
-" don't update the screen during commands
-set lazyredraw
-set nu
-set nowrap
-set backspace=indent,eol,start
-set foldmethod=indent
-set foldlevel=99
-set autoread
-set autoindent
-set splitbelow
-set splitright
-set spell spelllang=en_us
-hi clear SpellBad
-hi SpellBad cterm=underline
-" Show matching brackets
-set showmatch
-" Matching settings
-set ignorecase
-set smartcase
-set incsearch
-
-" Use the system keyboard
-set clipboard=unnamed
-
-" fzf
-set rtp+=~/.fzf
-nnoremap <Leader>ff :Files<cr>
-nnoremap <Leader>f :Rg<cr>
-nnoremap <C-\> <C-^>
-
-" Reopen at last closed line
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
 " Key mappings
 let mapleader=";"
 
-" Useful binds
-inoremap <Leader>pd <C-R>=strftime('%m/%d/%y %H:%M:%S')<CR>
+" Access to the system keyboard
+map <leader>y "+y
+map <leader>p "+p
 
 " sometimes I get off the shift key too slowly
 command W w
@@ -68,14 +29,72 @@ nnoremap <Leader>j <C-W><C-J>
 nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>l <C-W><C-L>
 nnoremap <Leader>h <C-W><C-H>
+nnoremap <silent> <Leader>d :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>a :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <silent> <Leader>s :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>w :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <Leader>n :bnext<CR>
 nnoremap <Leader>c :bnext <bar> :bd #<CR>
-nnoremap <Leader>vr :source $MYVIMRC<CR>
-nnoremap <Leader>vm :vsp $MYVIMRC<CR>
-nnoremap <Leader>vn :NERDTreeToggle ~/notesd <bar> :cd ~/notesd<CR>
-nnoremap <Leader>ft :NERDTreeToggle<CR>
+
+" fzf
+set rtp+=~/.fzf
+nnoremap <C-\> <C-^>
+
+" General config
+syntax on
+filetype on
+
+set ttyfast			 " push more characters through to the terminal per cycle
+set lazyredraw                   " don't update the screen during commands
+set nu
+set nowrap
+set backspace=indent,eol,start
+set foldmethod=indent
+set foldlevel=99
+set autoread    		 " Auto update read-only files
+set autoindent
+set splitbelow
+set splitright
+
+" Customize session options. Namely, I don't want to save hidden and
+" unloaded buffers or empty windows.
+set sessionoptions="curdir,folds,help,options,tabpages,winsize"
+
+" Backup settings
+execute "set directory=" . "~/vim.bak/" . "/swap"
+execute "set backupdir=" . "~/vim.bak/" . "/backup"
+execute "set undodir=" . "~/vim.bak/" . "/undo"
+set backup
+set undofile
+set writebackup
+
+" Show matching brackets
+set showmatch
+
+" Matching settings
+set hlsearch
+set ignorecase
+set incsearch
+set smartcase
+
+" Tab completion settings
+set wildmode=list:longest     " Wildcard matches show a list, matching the longest first
+set wildignore+=.git,.hg,.svn " Ignore version control repos
+set wildignore+=*.6           " Ignore Go compiled files
+set wildignore+=*.pyc         " Ignore Python compiled files
+set wildignore+=*.swp         " Ignore vim backups
+
+
+" Reopen at last closed line
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+" Make configs accessible
+if has('nvim')
+	nnoremap <Leader>nvm :vsp ~/.config/nvim/lua/init.lua<CR>
+endif
+
+nnoremap <Leader>vm :vsp ~/.vimrc<CR>
 
 " Generate helptags, must be set at end
 silent! helptags ALL
 set secure
-
